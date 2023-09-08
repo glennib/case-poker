@@ -24,7 +24,17 @@ pub enum Rank {
 }
 
 #[derive(Copy, Clone, Hash, Eq, PartialEq, Debug)]
-pub struct Card(pub Rank, pub Suit);
+pub struct Card {
+    pub rank: Rank,
+    pub suit: Suit,
+}
+
+impl Card {
+    pub fn new(rank: Rank, suit: Suit) -> Self {
+        Self { rank, suit }
+    }
+}
+
 impl TryFrom<char> for Suit {
     type Error = ();
     /// Attempt to return a [Suit] from a char.
@@ -94,7 +104,7 @@ impl TryFrom<&str> for Card {
         let Ok(suit) = Suit::try_from(suit) else {
             return Err(InvalidConversion::Suit(suit));
         };
-        Ok(Self(rank, suit))
+        Ok(Self::new(rank, suit))
     }
 }
 
@@ -105,13 +115,16 @@ mod tests {
     fn selected_card_conversions_work() {
         assert_eq!(
             Card::try_from("4r").unwrap(),
-            Card(Rank::Four, Suit::Diamonds,)
+            Card::new(Rank::Four, Suit::Diamonds,)
         );
         assert_eq!(
             Card::try_from("js").unwrap(),
-            Card(Rank::Jack, Suit::Spades,)
+            Card::new(Rank::Jack, Suit::Spades,)
         );
-        assert_eq!(Card::try_from("tk").unwrap(), Card(Rank::Ten, Suit::Clubs,));
+        assert_eq!(
+            Card::try_from("tk").unwrap(),
+            Card::new(Rank::Ten, Suit::Clubs,)
+        );
     }
     #[test]
     fn invalid_length_yields_error() {
