@@ -3,6 +3,9 @@ use crate::hands::Hand;
 use crate::cards::Rank;
 use itertools::Itertools;
 
+// TODO: Idea: Create a rank-count (Map<Rank, u8>) and perform checks on those, as well as a
+// TODO: suit-count (Map<Suit, u8>), instead of these ad-hoc methods.
+
 fn is_flush(hand: &Hand) -> bool {
     let mut cards = hand.cards();
     let head = cards.next().expect("a hand has five cards");
