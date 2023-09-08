@@ -18,6 +18,12 @@ pub struct Hand {
     hand: HashSet<Card>,
 }
 
+impl Hand {
+    pub fn cards(&self) -> impl Iterator<Item = &Card> {
+        self.hand.iter()
+    }
+}
+
 #[derive(thiserror::Error, Debug)]
 pub enum HandConstructionError {
     #[error("number of cards in hand ({0}) must be 5")]
