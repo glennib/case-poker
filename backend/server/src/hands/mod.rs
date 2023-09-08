@@ -1,3 +1,5 @@
+mod classify;
+
 use crate::cards::{Card, Rank, Suit};
 use std::collections::HashSet;
 
