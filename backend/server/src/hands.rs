@@ -56,10 +56,10 @@ mod tests {
         use Suit::*;
         assert!(Hand::try_from(
             [
-                Card(Seven, Spades),
-                Card(Eight, Spades),
-                Card(Nine, Spades),
-                Card(Ten, Spades),
+                Card::new(Seven, Spades),
+                Card::new(Eight, Spades),
+                Card::new(Nine, Spades),
+                Card::new(Ten, Spades),
             ]
             .as_slice()
         )
@@ -71,12 +71,12 @@ mod tests {
         use Suit::*;
         assert!(Hand::try_from(
             [
-                Card(Seven, Spades),
-                Card(Eight, Spades),
-                Card(Nine, Spades),
-                Card(Ten, Spades),
-                Card(Jack, Spades),
-                Card(Queen, Spades),
+                Card::new(Seven, Spades),
+                Card::new(Eight, Spades),
+                Card::new(Nine, Spades),
+                Card::new(Ten, Spades),
+                Card::new(Jack, Spades),
+                Card::new(Queen, Spades),
             ]
             .as_slice()
         )
@@ -88,11 +88,11 @@ mod tests {
         use Suit::*;
         assert!(Hand::try_from(
             [
-                Card(Seven, Spades),
-                Card(Eight, Spades),
-                Card(Nine, Spades),
-                Card(Ten, Spades),
-                Card(Ten, Spades),
+                Card::new(Seven, Spades),
+                Card::new(Eight, Spades),
+                Card::new(Nine, Spades),
+                Card::new(Ten, Spades),
+                Card::new(Ten, Spades),
             ]
             .as_slice()
         )
@@ -104,11 +104,11 @@ mod tests {
         use Suit::*;
         assert!(Hand::try_from(
             [
-                Card(Seven, Spades),
-                Card(Eight, Spades),
-                Card(Nine, Spades),
-                Card(Ten, Spades),
-                Card(Jack, Spades),
+                Card::new(Seven, Spades),
+                Card::new(Eight, Spades),
+                Card::new(Nine, Spades),
+                Card::new(Ten, Spades),
+                Card::new(Jack, Spades),
             ]
             .as_slice()
         )
