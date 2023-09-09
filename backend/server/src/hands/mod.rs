@@ -3,14 +3,8 @@ mod classify;
 pub use classify::classify;
 
 use crate::cards::{Card, Rank, Suit};
-use std::{
-    collections::{
-        HashMap,
-        HashSet,
-        hash_map::Entry,
-    }
-};
 use serde::Serialize;
+use std::collections::{hash_map::Entry, HashMap, HashSet};
 
 #[derive(Eq, PartialEq, Hash, Debug, Copy, Clone, Ord, PartialOrd, Serialize)]
 pub enum HandCategory {
@@ -39,7 +33,7 @@ pub type SuitCount = HashMap<Suit, u8>;
 
 impl Hand {
     /// Returns an iterator over the five unique cards.
-    pub fn cards(&self) -> impl Iterator<Item=&Card> {
+    pub fn cards(&self) -> impl Iterator<Item = &Card> {
         self.hand.iter()
     }
 
@@ -48,8 +42,12 @@ impl Hand {
         let mut ranks = HashMap::new();
         for card in self.cards() {
             match ranks.entry(card.rank) {
-                Entry::Occupied(e) => { *e.into_mut() += 1; }
-                Entry::Vacant(e) => { e.insert(1); }
+                Entry::Occupied(e) => {
+                    *e.into_mut() += 1;
+                }
+                Entry::Vacant(e) => {
+                    e.insert(1);
+                }
             }
         }
         ranks
@@ -60,8 +58,12 @@ impl Hand {
         let mut suits = HashMap::with_capacity(4);
         for card in self.cards() {
             match suits.entry(card.suit) {
-                Entry::Occupied(e) => { *e.into_mut() += 1; }
-                Entry::Vacant(e) => { e.insert(1); }
+                Entry::Occupied(e) => {
+                    *e.into_mut() += 1;
+                }
+                Entry::Vacant(e) => {
+                    e.insert(1);
+                }
             }
         }
         suits
@@ -109,9 +111,9 @@ mod tests {
                 Card::new(Nine, Spades),
                 Card::new(Ten, Spades),
             ]
-                .as_slice()
+            .as_slice()
         )
-            .is_err());
+        .is_err());
     }
 
     #[test]
@@ -127,9 +129,9 @@ mod tests {
                 Card::new(Jack, Spades),
                 Card::new(Queen, Spades),
             ]
-                .as_slice()
+            .as_slice()
         )
-            .is_err());
+        .is_err());
     }
 
     #[test]
@@ -144,9 +146,9 @@ mod tests {
                 Card::new(Ten, Spades),
                 Card::new(Ten, Spades),
             ]
-                .as_slice()
+            .as_slice()
         )
-            .is_err());
+        .is_err());
     }
 
     #[test]
@@ -161,8 +163,8 @@ mod tests {
                 Card::new(Ten, Spades),
                 Card::new(Jack, Spades),
             ]
-                .as_slice()
+            .as_slice()
         )
-            .is_ok());
+        .is_ok());
     }
 }

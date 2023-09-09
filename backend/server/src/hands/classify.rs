@@ -5,13 +5,8 @@
 //! be called in a specific order, like in [`classify`].
 
 use crate::{
-    hands::{
-        Hand,
-        HandCategory,
-        RankCount,
-        SuitCount,
-    },
     cards::Rank,
+    hands::{Hand, HandCategory, RankCount, SuitCount},
 };
 
 use itertools::Itertools;
@@ -29,19 +24,33 @@ pub fn classify(hand: &Hand) -> HandCategory {
         return StraightFlush;
     }
 
-    if is_four_of_a_kind(&rank_count) { return FourOfAKind; }
+    if is_four_of_a_kind(&rank_count) {
+        return FourOfAKind;
+    }
 
-    if is_full_house(&rank_count) { return FullHouse; }
+    if is_full_house(&rank_count) {
+        return FullHouse;
+    }
 
-    if flush { return Flush; }
+    if flush {
+        return Flush;
+    }
 
-    if straight { return Straight; }
+    if straight {
+        return Straight;
+    }
 
-    if is_three_of_a_kind(&rank_count) { return ThreeOfAKind; }
+    if is_three_of_a_kind(&rank_count) {
+        return ThreeOfAKind;
+    }
 
-    if is_two_pair(&rank_count) { return TwoPair; }
+    if is_two_pair(&rank_count) {
+        return TwoPair;
+    }
 
-    if is_one_pair(&rank_count) { return OnePair; }
+    if is_one_pair(&rank_count) {
+        return OnePair;
+    }
 
     HighCard
 }
@@ -106,9 +115,9 @@ mod tests {
                 Card::new(Rank::King, Suit::Hearts),
                 Card::new(Rank::Ace, Suit::Hearts),
             ]
-                .as_slice(),
+            .as_slice(),
         )
-            .unwrap();
+        .unwrap();
         assert_eq!(classify(&hand), HandCategory::StraightFlush);
     }
 
@@ -122,9 +131,9 @@ mod tests {
                 Card::new(Rank::Seven, Suit::Diamonds),
                 Card::new(Rank::Jack, Suit::Hearts),
             ]
-                .as_slice(),
+            .as_slice(),
         )
-            .unwrap();
+        .unwrap();
         assert_eq!(classify(&hand), HandCategory::HighCard);
     }
 
@@ -145,9 +154,9 @@ mod tests {
                     Card::new(Rank::Seven, Suit::Spades),
                     Card::new(Rank::Nine, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(!is_flush(&hand.count_suits()));
         }
 
@@ -161,9 +170,9 @@ mod tests {
                     Card::new(Rank::Seven, Suit::Spades),
                     Card::new(Rank::Nine, Suit::Spades),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(is_flush(&hand.count_suits()));
         }
     }
@@ -185,9 +194,9 @@ mod tests {
                     Card::new(Rank::Six, Suit::Diamonds),
                     Card::new(Rank::Seven, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(!is_straight(&hand.count_ranks()));
         }
 
@@ -201,9 +210,9 @@ mod tests {
                     Card::new(Rank::Ace, Suit::Diamonds),
                     Card::new(Rank::Two, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(!is_straight(&hand.count_ranks()));
         }
 
@@ -217,9 +226,9 @@ mod tests {
                     Card::new(Rank::Eight, Suit::Diamonds),
                     Card::new(Rank::Nine, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(is_straight(&hand.count_ranks()));
         }
 
@@ -233,9 +242,9 @@ mod tests {
                     Card::new(Rank::Four, Suit::Diamonds),
                     Card::new(Rank::Five, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(is_straight(&hand.count_ranks()));
         }
 
@@ -249,19 +258,19 @@ mod tests {
                     Card::new(Rank::King, Suit::Diamonds),
                     Card::new(Rank::Ace, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(is_straight(&hand.count_ranks()));
         }
     }
 
     mod four_of_a_kind {
+        use super::is_four_of_a_kind;
         use crate::{
             cards::{Card, Rank, Suit},
             hands::Hand,
         };
-        use super::is_four_of_a_kind;
 
         #[test]
         fn three_of_a_kind_gives_false() {
@@ -273,9 +282,9 @@ mod tests {
                     Card::new(Rank::Seven, Suit::Clubs),
                     Card::new(Rank::Seven, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(!is_four_of_a_kind(&hand.count_ranks()));
         }
 
@@ -289,19 +298,19 @@ mod tests {
                     Card::new(Rank::Ace, Suit::Clubs),
                     Card::new(Rank::Seven, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(is_four_of_a_kind(&hand.count_ranks()));
         }
     }
 
     mod full_house {
+        use super::is_full_house;
         use crate::{
             cards::{Card, Rank, Suit},
             hands::Hand,
         };
-        use super::is_full_house;
 
         #[test]
         fn two_pair_gives_false() {
@@ -313,9 +322,9 @@ mod tests {
                     Card::new(Rank::Seven, Suit::Clubs),
                     Card::new(Rank::Seven, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(!is_full_house(&hand.count_ranks()));
         }
 
@@ -329,19 +338,19 @@ mod tests {
                     Card::new(Rank::Seven, Suit::Clubs),
                     Card::new(Rank::Seven, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(is_full_house(&hand.count_ranks()));
         }
     }
 
     mod three_of_a_kind {
+        use super::is_three_of_a_kind;
         use crate::{
             cards::{Card, Rank, Suit},
             hands::Hand,
         };
-        use super::is_three_of_a_kind;
 
         #[test]
         fn a_pair_gives_false() {
@@ -353,9 +362,9 @@ mod tests {
                     Card::new(Rank::Queen, Suit::Clubs),
                     Card::new(Rank::King, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(!is_three_of_a_kind(&hand.count_ranks()));
         }
 
@@ -369,19 +378,19 @@ mod tests {
                     Card::new(Rank::Queen, Suit::Clubs),
                     Card::new(Rank::King, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(is_three_of_a_kind(&hand.count_ranks()));
         }
     }
 
     mod two_pair {
+        use super::is_two_pair;
         use crate::{
             cards::{Card, Rank, Suit},
             hands::Hand,
         };
-        use super::is_two_pair;
 
         #[test]
         fn a_pair_gives_false() {
@@ -393,9 +402,9 @@ mod tests {
                     Card::new(Rank::Queen, Suit::Clubs),
                     Card::new(Rank::King, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(!is_two_pair(&hand.count_ranks()));
         }
 
@@ -409,19 +418,19 @@ mod tests {
                     Card::new(Rank::Queen, Suit::Clubs),
                     Card::new(Rank::King, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(is_two_pair(&hand.count_ranks()));
         }
     }
 
     mod one_pair {
+        use super::is_one_pair;
         use crate::{
             cards::{Card, Rank, Suit},
             hands::Hand,
         };
-        use super::is_one_pair;
 
         #[test]
         fn high_card_gives_false() {
@@ -433,9 +442,9 @@ mod tests {
                     Card::new(Rank::Eight, Suit::Clubs),
                     Card::new(Rank::Ten, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(!is_one_pair(&hand.count_ranks()));
         }
 
@@ -449,9 +458,9 @@ mod tests {
                     Card::new(Rank::Eight, Suit::Clubs),
                     Card::new(Rank::Ten, Suit::Hearts),
                 ]
-                    .as_slice(),
+                .as_slice(),
             )
-                .unwrap();
+            .unwrap();
             assert!(is_one_pair(&hand.count_ranks()));
         }
     }

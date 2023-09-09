@@ -1,14 +1,18 @@
-use itertools::Itertools;
-use lazy_static::lazy_static;
 use crate::cards::{Card, Rank, Suit};
 use crate::hands::Hand;
+use itertools::Itertools;
+use lazy_static::lazy_static;
 
 /// Draw a [`Hand`] of five unique [`Card`]s.
 pub fn draw_hand() -> Hand {
     use rand::seq::SliceRandom;
 
     let mut rng = &mut rand::thread_rng();
-    let hand: Vec<_> = DECK.as_slice().choose_multiple(&mut rng, 5).copied().collect();
+    let hand: Vec<_> = DECK
+        .as_slice()
+        .choose_multiple(&mut rng, 5)
+        .copied()
+        .collect();
     Hand::try_from(hand.as_slice()).expect("we gave five unique cards")
 }
 
