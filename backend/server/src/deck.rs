@@ -1,6 +1,5 @@
 use crate::cards::{Card, Rank, Suit};
 use crate::hands::Hand;
-use itertools::Itertools;
 use lazy_static::lazy_static;
 
 /// Draw a [`Hand`] of five unique [`Card`]s.
