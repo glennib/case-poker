@@ -20,3 +20,12 @@ The server should then run on your local TCP-port 8080.
 * `/analyze/:cards`
     * `GET` analyzes the provided cards. The `:cards` format is a comma-separated list of rank and suit for five cards.
       Example: `/analyze/tr,jr,qr,kr,1r` would return the JSON string "StraightFlush".
+
+## code documentation
+
+If you have [Rust](https://rustup.rs/) on your system, you can generate and open documentation for the server:
+
+```shell
+cd server
+cargo doc --no-deps --open
+```

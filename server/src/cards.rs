@@ -63,7 +63,7 @@ impl TryFrom<char> for Suit {
     type Error = ();
     /// Attempt to return a [Suit] from a char.
     ///
-    /// The chars 'r', 's', 'k', 'h' map to [Diamonds], [Spades], [Clubs] and [Hearts],
+    /// The chars 'r', 's', 'k', 'h' map to Diamonds, Spades, Clubs and Hearts,
     /// respectively. This is following the Norwegian language, i.e., ruter, spar, kløver, hjerter.
     fn try_from(value: char) -> Result<Self, Self::Error> {
         match value {
@@ -80,8 +80,8 @@ impl TryFrom<char> for Rank {
     type Error = ();
     /// Attempt to return a [Rank] from a char.
     ///
-    /// '1' through '9' map to [Ace] through [Nine]. 't' maps to [Ten]. 'j', 'q', 'k' map to [Jack],
-    /// [Queen], and [King].
+    /// '1' through '9' map to Ace through Nine. 't' maps to Ten. 'j', 'q', 'k' map to Jack,
+    /// Queen, and King.
     fn try_from(value: char) -> Result<Self, Self::Error> {
         match value {
             '1' => Ok(Rank::Ace),
