@@ -8,7 +8,7 @@ The server runs in a Docker container, managed by Docker Compose.
 To start the server:
 
 ```shell
-docker compose up
+docker compose up --build
 ```
 
 The server should then run on your local TCP-port 8080.
