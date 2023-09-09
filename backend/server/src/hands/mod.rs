@@ -23,7 +23,7 @@ pub enum HandCategory {
 ///
 /// Since the only way to construct a [`Hand`] is via the [`TryFrom`] trait, whose function fails if
 /// five unique cards are not given, a [`Hand`] is guaranteed to have five unique [`Cards`].
-#[derive(Clone, Serialize)]
+#[derive(Clone, Serialize, Debug)]
 pub struct Hand {
     hand: HashSet<Card>,
 }
