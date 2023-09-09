@@ -1,5 +1,7 @@
 mod classify;
 
+pub use classify::classify;
+
 use crate::cards::{Card, Rank, Suit};
 use std::{
     collections::{
