@@ -1,6 +1,7 @@
 //! Here we model a playing [`Card`] with a [`Rank`] and a [`Suit`].
 
 use serde::Serialize;
+use std::str::FromStr;
 
 #[derive(Copy, Clone, Hash, Eq, PartialEq, Debug, Serialize)]
 pub enum Suit {
@@ -112,14 +113,14 @@ pub enum InvalidConversion {
     Suit(char),
 }
 
-impl TryFrom<&str> for Card {
-    type Error = InvalidConversion;
+impl FromStr for Card {
+    type Err = InvalidConversion;
 
-    fn try_from(value: &str) -> Result<Self, Self::Error> {
-        if value.len() != 2 {
-            return Err(InvalidConversion::Length(value.len()));
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if s.len() != 2 {
+            return Err(InvalidConversion::Length(s.len()));
         }
-        let mut chars = value.chars();
+        let mut chars = s.chars();
         let rank = chars.next().expect("we already checked that length is 2");
         let Ok(rank) = Rank::try_from(rank) else {
             return Err(InvalidConversion::Rank(rank));
@@ -138,34 +139,25 @@ mod tests {
 
     #[test]
     fn selected_card_conversions_work() {
-        assert_eq!(
-            Card::try_from("4r").unwrap(),
-            Card::new(Rank::Four, Suit::Diamonds)
-        );
-        assert_eq!(
-            Card::try_from("js").unwrap(),
-            Card::new(Rank::Jack, Suit::Spades)
-        );
-        assert_eq!(
-            Card::try_from("tk").unwrap(),
-            Card::new(Rank::Ten, Suit::Clubs)
-        );
+        assert_eq!(Card::new(Rank::Four, Suit::Diamonds), "4r".parse().unwrap());
+        assert_eq!(Card::new(Rank::Jack, Suit::Spades), "js".parse().unwrap());
+        assert_eq!(Card::new(Rank::Ten, Suit::Clubs), "tk".parse().unwrap());
     }
 
     #[test]
     fn invalid_length_yields_error() {
-        assert!(Card::try_from("").is_err());
-        assert!(Card::try_from("tkk").is_err());
-        assert!(Card::try_from("jjs").is_err());
+        assert!("".parse::<Card>().is_err());
+        assert!("tkk".parse::<Card>().is_err());
+        assert!("jjs".parse::<Card>().is_err());
     }
 
     #[test]
     fn invalid_rank_yields_error() {
-        assert!(Card::try_from("0k").is_err());
+        assert!("0k".parse::<Card>().is_err());
     }
 
     #[test]
     fn invalid_suit_yields_error() {
-        assert!(Card::try_from("1p").is_err());
+        assert!("1p".parse::<Card>().is_err());
     }
 }

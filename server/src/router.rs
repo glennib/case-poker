@@ -1,7 +1,7 @@
 //! This module provides a [`Router`] which represent the HTTP endpoints.
 
 use crate::{
-    cards::{Card, InvalidConversion},
+    cards::InvalidConversion,
     deck::draw_hand,
     hands::{classify, Hand, HandCategory, HandConstructionError},
 };
@@ -24,6 +24,7 @@ use tracing::{debug, instrument};
 ///* `/analyze/:cards`
 ///    * `GET` analyzes the provided cards. The `:cards` format is a comma-separated list of rank and suit for five cards.
 ///      Example: `/analyze/tr,jr,qr,kr,1r` would return the JSON string "StraightFlush".
+#[allow(clippy::doc_markdown)]
 pub fn create() -> Router {
     Router::new()
         .route("/draw", get(draw_and_analyze))
@@ -59,7 +60,7 @@ async fn analyze(Path(cards): Path<String>) -> axum::response::Result<Json<Value
     // Convert each card to a Card. Return error if conversion fails.
     let cards = cards
         .split(',')
-        .map(Card::try_from)
+        .map(str::parse)
         .collect::<Result<Vec<_>, _>>()?;
     // Convert Vec of Card to Hand, return error if conversion fails.
     let hand = Hand::try_from(cards.as_slice())?;
