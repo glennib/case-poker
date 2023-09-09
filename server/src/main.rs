@@ -1,11 +1,10 @@
-use crate::router::create;
-use tracing::info;
-
 mod cards;
 mod deck;
 mod hands;
-
 mod router;
+
+use router::create;
+use tracing::info;
 
 /// Start a web server at port 8080.
 #[tokio::main]
