@@ -16,7 +16,7 @@ use serde::Serialize;
 use serde_json::Value;
 use tracing::{debug, instrument};
 
-pub fn create_router() -> Router {
+pub fn create() -> Router {
     Router::new()
         .route("/draw", get(draw_and_analyze))
         .route("/analyze/:cards", get(analyze))

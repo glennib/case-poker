@@ -13,7 +13,10 @@ use itertools::Itertools;
 
 /// Analyze the five-card [`Hand`] and returns the highest-ranking category possible with it.
 pub fn classify(hand: &Hand) -> HandCategory {
-    use HandCategory::*;
+    use HandCategory::{
+        Flush, FourOfAKind, FullHouse, HighCard, OnePair, Straight, StraightFlush, ThreeOfAKind,
+        TwoPair,
+    };
     let rank_count = hand.count_ranks();
     let suit_count = hand.count_suits();
 

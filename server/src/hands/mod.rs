@@ -91,7 +91,7 @@ impl TryFrom<&[Card]> for Hand {
         if value.len() != 5 {
             return Err(HandConstructionError::Length(value.len()));
         }
-        let hand = HashSet::from_iter(value.iter().copied());
+        let hand: HashSet<_> = value.iter().copied().collect();
         if hand.len() != 5 {
             return Err(HandConstructionError::Uniqueness(hand.len()));
         }

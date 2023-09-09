@@ -28,7 +28,7 @@ pub enum Rank {
 }
 
 impl Rank {
-    pub fn numeric(&self) -> u8 {
+    pub fn numeric(self) -> u8 {
         match self {
             Rank::Ace => 1,
             Rank::Two => 2,
