@@ -1,7 +1,13 @@
 mod classify;
 
 use crate::cards::{Card, Rank, Suit};
-use std::collections::HashSet;
+use std::{
+    collections::{
+        HashMap,
+        HashSet,
+        hash_map::Entry,
+    }
+};
 
 #[derive(Eq, PartialEq, Hash, Debug, Copy, Clone, Ord, PartialOrd)]
 pub enum HandCategory {
@@ -16,13 +22,45 @@ pub enum HandCategory {
     StraightFlush,
 }
 
+/// Represents a hand of five unique [`Card`]s.
+///
+/// Since the only way to construct a [`Hand`] is via the [`TryFrom`] trait, whose function fails if
+/// five unique cards are not given, a [`Hand`] is guaranteed to have five unique [`Cards`].
 pub struct Hand {
     hand: HashSet<Card>,
 }
 
+pub type RankCount = HashMap<Rank, u8>;
+pub type SuitCount = HashMap<Suit, u8>;
+
 impl Hand {
-    pub fn cards(&self) -> impl Iterator<Item = &Card> {
+    /// Returns an iterator over the five unique cards.
+    pub fn cards(&self) -> impl Iterator<Item=&Card> {
         self.hand.iter()
+    }
+
+    /// Gives a count of each of the ranks on hand.
+    pub fn count_ranks(&self) -> RankCount {
+        let mut ranks = HashMap::new();
+        for card in self.cards() {
+            match ranks.entry(card.rank) {
+                Entry::Occupied(e) => { *e.into_mut() += 1; }
+                Entry::Vacant(e) => { e.insert(1); }
+            }
+        }
+        ranks
+    }
+
+    /// Gives a count of each of the suits on hand.
+    pub fn count_suits(&self) -> SuitCount {
+        let mut suits = HashMap::with_capacity(4);
+        for card in self.cards() {
+            match suits.entry(card.suit) {
+                Entry::Occupied(e) => { *e.into_mut() += 1; }
+                Entry::Vacant(e) => { e.insert(1); }
+            }
+        }
+        suits
     }
 }
 
@@ -37,6 +75,9 @@ pub enum HandConstructionError {
 impl TryFrom<&[Card]> for Hand {
     type Error = HandConstructionError;
 
+    /// Attempt to construct a [`Hand`] from a slice of [`Card`]s.
+    ///
+    /// Fails if the slice does not contain exactly five unique cards.
     fn try_from(value: &[Card]) -> Result<Self, Self::Error> {
         if value.len() != 5 {
             return Err(HandConstructionError::Length(value.len()));
@@ -52,6 +93,7 @@ impl TryFrom<&[Card]> for Hand {
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn too_few_cards_fail() {
         use Rank::*;
@@ -63,10 +105,11 @@ mod tests {
                 Card::new(Nine, Spades),
                 Card::new(Ten, Spades),
             ]
-            .as_slice()
+                .as_slice()
         )
-        .is_err());
+            .is_err());
     }
+
     #[test]
     fn too_many_cards_fail() {
         use Rank::*;
@@ -80,10 +123,11 @@ mod tests {
                 Card::new(Jack, Spades),
                 Card::new(Queen, Spades),
             ]
-            .as_slice()
+                .as_slice()
         )
-        .is_err());
+            .is_err());
     }
+
     #[test]
     fn non_unique_cards_fail() {
         use Rank::*;
@@ -96,10 +140,11 @@ mod tests {
                 Card::new(Ten, Spades),
                 Card::new(Ten, Spades),
             ]
-            .as_slice()
+                .as_slice()
         )
-        .is_err());
+            .is_err());
     }
+
     #[test]
     fn five_unique_cards_succeed() {
         use Rank::*;
@@ -112,8 +157,8 @@ mod tests {
                 Card::new(Ten, Spades),
                 Card::new(Jack, Spades),
             ]
-            .as_slice()
+                .as_slice()
         )
-        .is_ok());
+            .is_ok());
     }
 }
