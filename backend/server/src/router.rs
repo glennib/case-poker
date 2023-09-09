@@ -38,18 +38,6 @@ async fn draw_and_analyze() -> Json<Value> {
     )
 }
 
-impl IntoResponse for InvalidConversion {
-    fn into_response(self) -> Response {
-        (StatusCode::BAD_REQUEST, self.to_string()).into_response()
-    }
-}
-
-impl IntoResponse for HandConstructionError {
-    fn into_response(self) -> Response {
-        (StatusCode::BAD_REQUEST, self.to_string()).into_response()
-    }
-}
-
 /// Analyzes the provided hand of five cards and returns its classification. Cards are
 /// comma-separated.
 ///
@@ -69,4 +57,16 @@ async fn analyze(Path(cards): Path<String>) -> axum::response::Result<Json<Value
     Ok(Json(
         serde_json::to_value(category).expect("no known fail modes"),
     ))
+}
+
+impl IntoResponse for InvalidConversion {
+    fn into_response(self) -> Response {
+        (StatusCode::BAD_REQUEST, format!("card is invalid: {self}")).into_response()
+    }
+}
+
+impl IntoResponse for HandConstructionError {
+    fn into_response(self) -> Response {
+        (StatusCode::BAD_REQUEST, format!("hand is invalid: {self}")).into_response()
+    }
 }
