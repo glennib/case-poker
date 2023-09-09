@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  poker_server:
+    container_name: "poker_server"
+    hostname: "poker_server"
+    build:
+      context: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
