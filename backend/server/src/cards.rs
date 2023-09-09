@@ -41,6 +41,24 @@ impl Rank {
             Rank::King => Rank::Ace,
         }
     }
+
+    pub fn numeric(&self) -> u8 {
+        match self {
+            Rank::Ace => { 1 }
+            Rank::Two => { 2 }
+            Rank::Three => { 3 }
+            Rank::Four => { 4 }
+            Rank::Five => { 5 }
+            Rank::Six => { 6 }
+            Rank::Seven => { 7 }
+            Rank::Eight => { 8 }
+            Rank::Nine => { 9 }
+            Rank::Ten => { 10 }
+            Rank::Jack => { 11 }
+            Rank::Queen => { 12 }
+            Rank::King => { 13 }
+        }
+    }
 }
 
 #[derive(Copy, Clone, Hash, Eq, PartialEq, Debug)]
@@ -131,31 +149,35 @@ impl TryFrom<&str> for Card {
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn selected_card_conversions_work() {
         assert_eq!(
             Card::try_from("4r").unwrap(),
-            Card::new(Rank::Four, Suit::Diamonds,)
+            Card::new(Rank::Four, Suit::Diamonds)
         );
         assert_eq!(
             Card::try_from("js").unwrap(),
-            Card::new(Rank::Jack, Suit::Spades,)
+            Card::new(Rank::Jack, Suit::Spades)
         );
         assert_eq!(
             Card::try_from("tk").unwrap(),
-            Card::new(Rank::Ten, Suit::Clubs,)
+            Card::new(Rank::Ten, Suit::Clubs)
         );
     }
+
     #[test]
     fn invalid_length_yields_error() {
         assert!(Card::try_from("").is_err());
         assert!(Card::try_from("tkk").is_err());
         assert!(Card::try_from("jjs").is_err());
     }
+
     #[test]
     fn invalid_rank_yields_error() {
         assert!(Card::try_from("0k").is_err());
     }
+
     #[test]
     fn invalid_suit_yields_error() {
         assert!(Card::try_from("1p").is_err());
