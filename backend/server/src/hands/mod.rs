@@ -10,8 +10,9 @@ use std::{
         hash_map::Entry,
     }
 };
+use serde::Serialize;
 
-#[derive(Eq, PartialEq, Hash, Debug, Copy, Clone, Ord, PartialOrd)]
+#[derive(Eq, PartialEq, Hash, Debug, Copy, Clone, Ord, PartialOrd, Serialize)]
 pub enum HandCategory {
     HighCard,
     OnePair,
@@ -28,6 +29,7 @@ pub enum HandCategory {
 ///
 /// Since the only way to construct a [`Hand`] is via the [`TryFrom`] trait, whose function fails if
 /// five unique cards are not given, a [`Hand`] is guaranteed to have five unique [`Cards`].
+#[derive(Clone, Serialize)]
 pub struct Hand {
     hand: HashSet<Card>,
 }
