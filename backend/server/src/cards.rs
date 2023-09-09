@@ -1,3 +1,5 @@
+//! Here we model a playing [`Card`] with a [`Rank`] and a [`Suit`].
+
 use serde::Serialize;
 
 #[derive(Copy, Clone, Hash, Eq, PartialEq, Debug, Serialize)]

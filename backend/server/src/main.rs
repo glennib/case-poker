@@ -7,6 +7,7 @@ mod hands;
 
 mod router;
 
+/// Start a web server at port 8080.
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();

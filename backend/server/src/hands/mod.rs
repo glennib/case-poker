@@ -1,3 +1,5 @@
+//! Model a [`Hand`] of five [`Card`]s.
+
 mod classify;
 
 pub use classify::classify;
@@ -6,6 +8,7 @@ use crate::cards::{Card, Rank, Suit};
 use serde::Serialize;
 use std::collections::{hash_map::Entry, HashMap, HashSet};
 
+/// Represent which classification a [`Hand`] of five cards has.
 #[derive(Eq, PartialEq, Hash, Debug, Copy, Clone, Ord, PartialOrd, Serialize)]
 pub enum HandCategory {
     HighCard,

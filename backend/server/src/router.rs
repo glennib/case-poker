@@ -1,3 +1,5 @@
+//! This module provides a [`Router`] which represent the HTTP endpoints.
+
 use crate::{
     cards::{Card, InvalidConversion},
     deck::draw_hand,
