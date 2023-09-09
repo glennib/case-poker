@@ -16,6 +16,14 @@ use serde::Serialize;
 use serde_json::Value;
 use tracing::{debug, instrument};
 
+/// Creates a router with two endpoints.
+///
+/// The endpoints:
+/// * `/draw`
+///    * `GET` generates a hand of five cards, returns a JSON representation of it and a classification of the hand.
+///* `/analyze/:cards`
+///    * `GET` analyzes the provided cards. The `:cards` format is a comma-separated list of rank and suit for five cards.
+///      Example: `/analyze/tr,jr,qr,kr,1r` would return the JSON string "StraightFlush".
 pub fn create() -> Router {
     Router::new()
         .route("/draw", get(draw_and_analyze))
