@@ -1,6 +1,6 @@
 //! Model a [`Hand`] of five [`Card`]s.
 
-use crate::cards::{Card, Rank, Suit};
+use crate::card::{Card, Rank, Suit};
 use serde::Serialize;
 use std::collections::{hash_map::Entry, HashMap, HashSet};
 

@@ -1,7 +1,7 @@
 //! Model a deck of 52 playing cards, and enable drawing five random cards from it.
 
-use crate::cards::{Card, Rank, Suit};
-use crate::hands::Hand;
+use crate::card::{Card, Rank, Suit};
+use crate::hand::Hand;
 use lazy_static::lazy_static;
 
 /// Draw a [`Hand`] of five unique [`Card`]s.

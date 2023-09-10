@@ -1,8 +1,8 @@
-mod cards;
-mod deck;
-mod hands;
-mod router;
+mod card;
 mod classify;
+mod deck;
+mod hand;
+mod router;
 
 use router::create;
 use tracing::info;

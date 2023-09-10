@@ -5,8 +5,8 @@
 //! be called in a specific order, like in [`classify`].
 
 use crate::{
-    cards::Rank,
-    hands::{Hand, HandCategory, RankCount, SuitCount},
+    card::Rank,
+    hand::{Hand, HandCategory, RankCount, SuitCount},
 };
 
 use itertools::Itertools;
@@ -104,8 +104,8 @@ fn is_one_pair(rank_count: &RankCount) -> bool {
 mod tests {
     use super::*;
     use crate::{
-        cards::{Card, Rank, Suit},
-        hands::Hand,
+        card::{Card, Rank, Suit},
+        hand::Hand,
     };
 
     #[test]
@@ -143,8 +143,8 @@ mod tests {
     mod flush {
         use super::is_flush;
         use crate::{
-            cards::{Card, Rank, Suit},
-            hands::Hand,
+            card::{Card, Rank, Suit},
+            hand::Hand,
         };
 
         #[test]
@@ -183,8 +183,8 @@ mod tests {
     mod straight {
         use super::is_straight;
         use crate::{
-            cards::{Card, Rank, Suit},
-            hands::Hand,
+            card::{Card, Rank, Suit},
+            hand::Hand,
         };
 
         #[test]
@@ -271,8 +271,8 @@ mod tests {
     mod four_of_a_kind {
         use super::is_four_of_a_kind;
         use crate::{
-            cards::{Card, Rank, Suit},
-            hands::Hand,
+            card::{Card, Rank, Suit},
+            hand::Hand,
         };
 
         #[test]
@@ -311,8 +311,8 @@ mod tests {
     mod full_house {
         use super::is_full_house;
         use crate::{
-            cards::{Card, Rank, Suit},
-            hands::Hand,
+            card::{Card, Rank, Suit},
+            hand::Hand,
         };
 
         #[test]
@@ -351,8 +351,8 @@ mod tests {
     mod three_of_a_kind {
         use super::is_three_of_a_kind;
         use crate::{
-            cards::{Card, Rank, Suit},
-            hands::Hand,
+            card::{Card, Rank, Suit},
+            hand::Hand,
         };
 
         #[test]
@@ -391,8 +391,8 @@ mod tests {
     mod two_pair {
         use super::is_two_pair;
         use crate::{
-            cards::{Card, Rank, Suit},
-            hands::Hand,
+            card::{Card, Rank, Suit},
+            hand::Hand,
         };
 
         #[test]
@@ -431,8 +431,8 @@ mod tests {
     mod one_pair {
         use super::is_one_pair;
         use crate::{
-            cards::{Card, Rank, Suit},
-            hands::Hand,
+            card::{Card, Rank, Suit},
+            hand::Hand,
         };
 
         #[test]

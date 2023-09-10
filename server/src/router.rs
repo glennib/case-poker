@@ -1,10 +1,10 @@
 //! This module provides a [`Router`] which represent the HTTP endpoints.
 
 use crate::{
-    cards::InvalidConversion,
+    card::InvalidConversion,
     classify::classify,
     deck::draw_hand,
-    hands::{Hand, HandCategory, HandConstructionError},
+    hand::{Hand, HandCategory, HandConstructionError},
 };
 use axum::{
     extract::Path,
