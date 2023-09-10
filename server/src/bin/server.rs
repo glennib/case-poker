@@ -1,10 +1,6 @@
-mod card;
-mod classify;
-mod deck;
-mod hand;
-mod router;
+//! Local server
 
-use router::create;
+use server::router::create;
 use tracing::info;
 
 /// Start a web server at port 8080.

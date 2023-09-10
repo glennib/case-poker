@@ -23,7 +23,7 @@ COPY ./server/src /var/server/src
 COPY ./server/Cargo.toml /var/server/Cargo.toml
 COPY ./server/Cargo.lock /var/server/Cargo.lock
 
-RUN cargo build --release
+RUN cargo build --release --bin server
 
 
 FROM ubuntu:latest AS production-server

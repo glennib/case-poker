@@ -29,3 +29,9 @@ If you have [Rust](https://rustup.rs/) on your system, you can generate and open
 cd server
 cargo doc --no-deps --open
 ```
+
+## test it in the cloud
+
+https://gm4cngmxqlnzazp7xlvarnvjv40sqlkd.lambda-url.eu-north-1.on.aws/draw
+
+https://gm4cngmxqlnzazp7xlvarnvjv40sqlkd.lambda-url.eu-north-1.on.aws/analyze/tr,jr,qr,kr,1r

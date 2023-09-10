@@ -1,0 +1,30 @@
+on:
+  push:
+    branches:
+      - main
+
+name: deploy-lambda
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+
+      - name: Deploy lambda
+        run: |
+          pip install cargo-lambda
+          cd server
+          cargo lambda build --release --bin aws_lambda_case_poker
+          cargo lambda deploy aws_lambda_case_poker --enable-function-url
+        env:
+          AWS_DEFAULT_REGION: eu-north-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

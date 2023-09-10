@@ -1,0 +1,15 @@
+on: [push]
+name: test
+jobs:
+  build_and_test:
+    name: build and test server / ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --release --manifest-path server/Cargo.toml
