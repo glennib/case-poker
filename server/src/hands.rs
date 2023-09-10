@@ -1,9 +1,5 @@
 //! Model a [`Hand`] of five [`Card`]s.
 
-mod classify;
-
-pub use classify::classify;
-
 use crate::cards::{Card, Rank, Suit};
 use serde::Serialize;
 use std::collections::{hash_map::Entry, HashMap, HashSet};

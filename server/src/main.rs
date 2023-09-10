@@ -2,6 +2,7 @@ mod cards;
 mod deck;
 mod hands;
 mod router;
+mod classify;
 
 use router::create;
 use tracing::info;

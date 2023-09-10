@@ -2,8 +2,9 @@
 
 use crate::{
     cards::InvalidConversion,
+    classify::classify,
     deck::draw_hand,
-    hands::{classify, Hand, HandCategory, HandConstructionError},
+    hands::{Hand, HandCategory, HandConstructionError},
 };
 use axum::{
     extract::Path,
