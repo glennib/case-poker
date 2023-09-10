@@ -19,6 +19,7 @@ jobs:
       - name: Release lambda
         run: |
           pip install cargo-lambda
+          cd server
           cargo lambda build --release
           cargo lambda deploy case-poker
         env:
