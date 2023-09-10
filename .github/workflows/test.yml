@@ -1,5 +1,5 @@
 on: [push]
-name: test-server
+name: test
 jobs:
   build_and_test:
     name: build and test server / ubuntu-latest

@@ -1,3 +1,5 @@
+//! Local server
+
 use server::router::create;
 use tracing::info;
 
