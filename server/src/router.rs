@@ -26,7 +26,7 @@ use tracing::{debug, instrument};
 ///    * `GET` analyzes the provided cards. The `:cards` format is a comma-separated list of rank and suit for five cards.
 ///      Example: `/analyze/tr,jr,qr,kr,1r` would return the JSON string "StraightFlush".
 #[allow(clippy::doc_markdown)]
-pub fn create() -> Router {
+pub fn create<B: axum::body::HttpBody + Send + 'static>() -> Router<(), B> {
     Router::new()
         .route("/draw", get(draw_and_analyze))
         .route("/analyze/:cards", get(analyze))
