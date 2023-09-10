@@ -18,12 +18,12 @@ jobs:
           profile: minimal
           override: true
 
-      - name: Release lambda
+      - name: Deploy lambda
         run: |
           pip install cargo-lambda
           cd server
           cargo lambda build --release --bin lambda
-          cargo lambda deploy lambda
+          cargo lambda deploy lambda --enable-function-url
         env:
           AWS_DEFAULT_REGION: eu-north-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
