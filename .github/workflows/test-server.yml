@@ -1,0 +1,16 @@
+on: [push]
+name: test-server
+jobs:
+  build_and_test:
+    name: build and test server / ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - run: cd server
+      - uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --release
