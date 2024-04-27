@@ -1,4 +1,4 @@
-FROM rust:1.72.0 AS builder-base
+FROM rust:1 AS builder-base
 
 RUN cargo install cargo-chef --locked
 
